@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-@include('inc.messages')
+<div class="container">
+        @include('inc.messages')
+</div>
 <div class="card card-default">
     <div class="card-header">
         {{isset($category) ? 'Edit Category' : 'Create Category'}}
