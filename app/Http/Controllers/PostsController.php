@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\CreatePostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -14,6 +15,9 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //uploading files is KILLING ME GOD DAMN
+    protected $debug = 0; // 1 = debug for image path.. 0 = no debug just fucking upload
+ 
     public function index()
     {
         $posts = Post::all();
@@ -43,16 +47,17 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->description = $request->input('description');
         $post->content = $request->input('content');
+        $post->published_at = $request->input('published_at');
 
-        $imagePath = $request->image->store('posts');
-
-
-        $post->image = $imagePath;
-
-        //dd($post);
-        $post->save();
-
-        return redirect(route('posts.index'))->with('success', 'Post '.$post->title.' Successfully Added');
+        $imagePath = request('image')->store('/posts', 'public');
+        //$this->debug == 1 dd image path else just fucking save it and redirect...
+        if($this->debug == 1) {
+            dd($imagePath);
+        } else {
+            $post->image = $imagePath;
+            $post->save();
+            return redirect(route('posts.index'))->with('success', 'Post '.$post->title.' Successfully Added');
+        }
     }
 
     /**
@@ -61,11 +66,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        // $post = Post::findOrFail($id);
-
-        // return view('posts.show', compact('post'));
+        //return view('posts.create')->with('post', $post);
     }
 
     /**
@@ -74,9 +77,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post', $post);
     }
 
     /**
@@ -99,6 +102,32 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+
+        $title = $post->title;
+
+        if($post->trashed()) {
+            Storage::delete($post->image);
+            $post->forceDelete();
+            $a = true;
+        } else {
+            $post->delete();
+            $a = false;
+        }
+
+        return redirect(route('posts.index'))->with('success', $a ? ' Post '.$title.' has been Deleted' : ' Post '.$title.' has been Trashed');
+    }
+
+    /**
+     * Display trashed posts.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed() {
+        $trashed = Post::withTrashed()->get();
+
+        return view('posts.index')->withPosts($trashed);
     }
 }

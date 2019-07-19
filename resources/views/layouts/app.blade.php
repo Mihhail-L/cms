@@ -9,8 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +16,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -85,6 +85,12 @@
                                     <a href="{{route('categories.index')}}">Category</a>
                                 </li>
                             </ul>
+
+                            <ul class="list-group mt-5">
+                                <li class="list-group-item">
+                                    <a href="{{ route('trashed-posts.index') }}">Trashed Posts</a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="col-md-8">
                             @yield('content')
@@ -96,7 +102,9 @@
             @endauth
         </main>
     </div>
-
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" ></script>
+    
     @yield('scripts')
 </body>
 </html>

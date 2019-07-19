@@ -12,28 +12,46 @@
     <div class="card-header">Posts</div>
 
     <div class="card-body">
-        <table class="table">
-            <thead>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Published At</th>
-                <th></th>
-            </thead>
-            <tbody>
-                @if(isset($posts))
-                    @foreach($posts as $post)
-                        <tr>
-                            <td>
-                                <img src="/public/{{$post->image}}" class="img-fluid w-50" alt="">
-                            </td>
-                            <td>
-                                {{$post->title}}
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
+        @if($posts->count() > 0)
+            <table class="table">
+                <thead>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    @if(isset($posts))
+                        @foreach($posts as $post)
+                            <tr>
+                                <td>
+                                    <img src="http://cms.test/storage/{{$post->image}}" class="img-fluid w-25" alt="">
+                                </td>
+                                <td>
+                                    {{$post->title}}
+                                </td>
+                                <td>
+                                    @if(!$post->trashed())
+                                        <a href="{{ route('posts.edit', $post->id)}}" class="btn btn-info btn-sm">Edit</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            {{$post->trashed() ? 'Delete' : 'Trash'}}
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+        @else 
+            <h3 class="text-center">No Posts Yet</h3>
+        @endif
     </div>
 </div>
 @endsection
