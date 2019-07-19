@@ -89,9 +89,29 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $old_title = $post->title;
+        $data = $request->only(['title', 'description', 'published_at', 'content']);
+        //check if new image
+        if ($request->hasFile('image')){
+            //upload it
+            $image = request('image')->store('/posts', 'public');
+            //delete old one
+            $post->deleteImage();
+
+            $data['image'] = $image;
+        }
+
+        //update attributes
+        $post->update($data);
+
+        if($old_title != $data['title']) {
+            $new_title = $data['title'];
+        }
+
+        return redirect(route('posts.index'))->with('success', 
+        isset($new_title) ? 'Post "'.$old_title.'" Successfully Updated New title: "'.$new_title.'"' : 'Post "'.$old_title.'" Successfully Updated');
     }
 
     /**
@@ -108,7 +128,7 @@ class PostsController extends Controller
         $title = $post->title;
 
         if($post->trashed()) {
-            Storage::delete($post->image);
+            $post->deleteImage();
             $post->forceDelete();
             $a = true;
         } else {
@@ -126,8 +146,15 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function trashed() {
-        $trashed = Post::withTrashed()->get();
+        $trashed = Post::onlyTrashed()->get();
 
         return view('posts.index')->withPosts($trashed);
+    }
+
+    public function restore($id) {
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+        $post->restore();
+
+        return redirect()->back()->with('success', 'Post '.$post->title.' has been restored');
     }
 }
