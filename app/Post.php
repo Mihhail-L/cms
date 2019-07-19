@@ -8,12 +8,16 @@ use Illuminate\Support\Facades\Storage;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'description', 'published_at', 'content', 'image'
+        'title', 'description', 'published_at', 'content', 'image', 'category_id'
     ];
 
     use SoftDeletes;
 
     public function deleteImage() {
         Storage::delete($this->image);
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
 }

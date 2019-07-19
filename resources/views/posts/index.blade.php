@@ -17,6 +17,7 @@
                 <thead>
                     <th>Image</th>
                     <th>Title</th>
+                    <th>Category</th>
                     <th></th>
                     <th></th>
                 </thead>
@@ -25,10 +26,13 @@
                         @foreach($posts as $post)
                             <tr>
                                 <td>
-                                    <img src="http://cms.test/storage/{{$post->image}}" class="img-fluid w-25" alt="">
+                                    <img src="http://cms.test/storage/{{$post->image}}" class="w-25" alt="">
                                 </td>
                                 <td>
                                     {{$post->title}}
+                                </td>
+                                <td>
+                                    <a href="{{ route('categories.edit', $post->category->id)}}">{{$post->category->name}}</a>
                                 </td>
                                 <td>
                                     @if(!$post->trashed())

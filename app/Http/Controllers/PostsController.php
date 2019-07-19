@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Requests\CreatePostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -48,6 +49,7 @@ class PostsController extends Controller
         $post->description = $request->input('description');
         $post->content = $request->input('content');
         $post->published_at = $request->input('published_at');
+        $post->category_id = $request->input('category');
 
         $imagePath = request('image')->store('/posts', 'public');
         //$this->debug == 1 dd image path else just fucking save it and redirect...
@@ -79,7 +81,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**
@@ -92,7 +94,7 @@ class PostsController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $old_title = $post->title;
-        $data = $request->only(['title', 'description', 'published_at', 'content']);
+        $data = $request->only(['title', 'description', 'published_at', 'content', 'category']);
         //check if new image
         if ($request->hasFile('image')){
             //upload it
