@@ -103,6 +103,11 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
         $deleted_name = $category->name;
+        if($category->posts->count() > 0 ){
+            session()->flash('error', 'Category "'.$deleted_name.'" belongs to post(s), can\'t be deleted');
+
+            return redirect()->back();
+        }
         $category->delete();
 
         return redirect(route('categories.index'))->with('success', 'Category "'.$deleted_name.'" Deleted Successfully');

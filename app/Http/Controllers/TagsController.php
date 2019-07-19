@@ -103,6 +103,11 @@ class tagsController extends Controller
     {
         $tag = Tag::findOrFail($id);
         $deleted_name = $tag->name;
+        if($tag->posts->count() > 0) {
+            session()->flash('error', 'Tag "'.$deleted_name.'" belons to post(s), can\'t be deleted');
+
+            return redirect()->back();
+        }
         $tag->delete();
 
         return redirect(route('tags.index'))->with('success', 'tag "'.$deleted_name.'" Deleted Successfully');
