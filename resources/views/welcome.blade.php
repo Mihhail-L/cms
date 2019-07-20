@@ -1,30 +1,54 @@
 @extends('layouts.app')
 
 @section('content')
+<hr>
+<div class="hero-image">
+    <div class="hero-text">
+        <h1>Blogs</h1>
+    </div>
+</div>
 <div class="container">
-        <div class="row text-center my-4">
-            <div class="col">
-                <h1 class="pb-3">Blogs</h1>
-            </div>
-        </div>
-
+        <hr>
         <div class="row">
                 @foreach ($posts as $post)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card text-center h-100">
-                        <div class="card-body text-center">
+                        <div class="card-img-top">
                             <a href=""><img src="http://cms.test/storage/{{$post->image}}" alt="" class="img-fluid mb-3"></a>
-                            <a href=""><h4>{{$post->title}}</h4></a>
-                            <a href="" class="text-info"><p>{{$post->description}}</p></a>
+                        </div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title bold"><a href=""><h4>{{$post->title}}</h4></a></h4>
+                            <p class="card-text">
+                            </p>
                         </div>
                         <div class="card-footer">
-                            <a href="" class="btn btn-primary">Visit post</a>
+                            @foreach ($post->tags as $tag)
+                                <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
                 @endforeach
-                <div class="w-100 d-none d-md-block d-lg-none"></div>
+                
             </div>
         </div>
     </div>
+@endsection
+
+@section('categories')
+<div class="widget-sidebar">
+    <h2 class="title-widget-sidebar">Categories</h2>
+    @foreach ($categories as $category)
+        <a href=""><button class="categories-btn">{{$category->name}}</button></a>
+    @endforeach
+</div>
+@endsection
+
+@section('tags')
+<div class="widget-sidebar text-center">
+    <h2 class="title-widget-sidebar">Tags</h2>
+        @foreach($tags as $tag)
+            <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+        @endforeach
+</div>
 @endsection

@@ -1,0 +1,126 @@
+.btn-sidebar-nav {
+    background-color: rgb(52, 144, 220);
+    text-decoration: none;
+    transition: 0.4s;
+    color:white;
+}
+
+.btn-sidebar-nav:hover {
+    background-color: rgb(117, 177, 226);
+    text-decoration: none;
+    color:white;
+}
+
+.btn-sidebar-nav-trashed {
+    background-color: rgb(73, 4, 42);
+    text-decoration: none;
+    transition: 0.4s;
+    color:white;
+}
+
+.btn-sidebar-nav-trashed:hover {
+    background-color: rgb(116, 6, 66);
+    text-decoration: none;
+    color:white;
+}
+
+.widget-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.title-widget-sidebar-trashed {
+    font-size: 14pt;
+    border-bottom: 2px solid rgb(116, 6, 66);
+    margin-bottom: 15px;
+    padding-bottom: 10px;    
+    margin-top: 0px;
+}
+.title-widget-sidebar-trashed:after {
+    font-size: 14pt;
+    border-bottom: 2px solid rgb(116, 6, 66);
+    margin-bottom: 15px;
+    padding-bottom: 10px;    
+    margin-top: 0px;
+}
+
+.title-widget-sidebar {
+    font-size: 14pt;
+    border-bottom: 2px solid #0695f5;
+    margin-bottom: 15px;
+    padding-bottom: 10px;    
+    margin-top: 0px;
+}
+
+.title-widget-sidebar:after {
+    border-bottom: 2px solid rgb(52, 144, 220);
+    width: 150px;
+    display: block;
+    position: absolute;
+    padding-bottom: 10px;
+}
+.categories-btn{
+    background-color: rgb(52, 144, 220);
+    margin-top:5px;
+    color: #fff;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    
+}
+.categories-btn:after {
+    content: '\25BA';
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+.categories-btn:hover {
+    background-color: #16A085;color: #fff;
+}
+
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://i.imgur.com/u7KwNe0.jpg");
+
+    height: 150px;
+    border-bottom-right-radius: 1.25rem;
+    border-bottom-left-radius: 1.25rem;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.badge-tags {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1.7;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

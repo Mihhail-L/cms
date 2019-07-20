@@ -82,28 +82,45 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <ul class="list-group">
+                            <ul class="list-group widget-sidebar">
+                                <h5 class="title-widget-sidebar">User Navigation</h5>
                                 @if (auth()->user()->isAdmin())
-                                    <li class="list-group-item">
-                                        <a href="{{ route('users.index') }}">Users</a>
+                                <a href="{{ route('users.index') }}">
+                                    <li class="list-group-item btn-sidebar-nav">
+                                        Users
                                     </li>
+                                </a>
                                 @endif
-                                <li class="list-group-item">
-                                    <a href="{{ route('posts.index') }}">Posts</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('categories.index')}}">Categories</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{route('tags.index')}}">Tags</a>
-                                </li>
+                                <a href="{{ route('posts.index') }}" class="pt-1">
+                                    <li class="list-group-item btn-sidebar-nav">
+                                        Posts
+                                    </li>
+                                </a>
+                                <a href="{{route('categories.index')}}" class="pt-1">
+                                        <li class="list-group-item btn-sidebar-nav">
+                                            Categories
+                                        </li>
+                                    </a>
+                                <a href="{{route('tags.index')}}" class="pt-1">
+                                        <li class="list-group-item btn-sidebar-nav">
+                                            Tags
+                                        </li>
+                                    </a>
                             </ul>
 
-                            <ul class="list-group mt-5">
-                                <li class="list-group-item">
-                                    <a href="{{ route('trashed-posts.index') }}">Trashed Posts</a>
-                                </li>
-                            </ul>
+                            
+                            @yield('categories')
+
+                            @yield('tags')
+
+                            <ul class="list-group mt-5 widget-sidebar">
+                                    <h5 class="title-widget-sidebar-trashed">Trash</h5>
+                                    <a href="{{ route('trashed-posts.index') }}">
+                                        <li class="list-group-item btn-sidebar-nav-trashed">
+                                            Trashed Posts
+                                        </li>
+                                    </a>
+                                </ul>
                         </div>
                         <div class="col-lg-9">
                             @yield('content')
@@ -111,7 +128,18 @@
                     </div>
                 </div>
             @else
-                @yield('content')
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        @yield('categories')
+
+                        @yield('tags')
+                    </div>
+                    <div class="col-lg-9">
+                            @yield('content')
+                    </div>
+                </div>
+            </div>
             @endauth
         </main>
     </div>
