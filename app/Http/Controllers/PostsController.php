@@ -79,7 +79,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //return view('posts.create')->with('post', $post);
+        return view('posts.show')->with('post', $post);
     }
 
     /**
