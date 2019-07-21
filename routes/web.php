@@ -17,6 +17,8 @@ Route::get('posts/show/{postid}', 'WelcomeController@show')->name('posts.guest.s
 
 Route::get('users/info/{userid}', 'UsersController@show')->name('user.show.info');
 
+Route::get('category/{catid}', 'WelcomeController@categoryfilter')->name('category.filter.index');
+
 Auth::routes();
 
 

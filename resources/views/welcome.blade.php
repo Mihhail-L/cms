@@ -4,7 +4,11 @@
 <hr>
 <div class="hero-image">
     <div class="hero-text">
-        <h1>Blogs</h1>
+        @if(isset($cat_name))
+            <h1>Category: {{$cat_name->name}}</h1>
+        @else
+            <h1>Blogs</h1>
+        @endif
     </div>
 </div>
 <hr>
@@ -59,7 +63,7 @@
 <div class="widget-sidebar">
     <h2 class="title-widget-sidebar">Categories</h2>
     @foreach ($categories as $category)
-        <a href=""><button class="categories-btn">{{$category->name}}</button></a>
+        <a href="{{route('category.filter.index', $category->id)}}"><button class="categories-btn">{{$category->name}}</button></a>
     @endforeach
 </div>
 @endsection
