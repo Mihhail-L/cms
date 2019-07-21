@@ -56,10 +56,12 @@
 @endsection
 
 @section('tags')
-<div class="widget-sidebar text-center">
+<div class="widget-sidebar">
     <h2 class="title-widget-sidebar">Tags</h2>
-        @foreach($tags as $tag)
-            <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
-        @endforeach
+    <div class="text-center">
+            @foreach($tags as $tag)
+                <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+            @endforeach
+        </div>
 </div>
 @endsection

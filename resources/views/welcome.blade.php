@@ -27,7 +27,15 @@
                                 </div>
                             <a href="{{route('user.show.info', $post->user->id)}}"><img src="{{ Gravatar::src($post->user->email) }}" alt="" class="avatar"></a>
                                 <div class="blog-info">
-                                    <h4 class="title"><a href="{{ route('posts.show', $post->id)}}"> {{$post->title}}</a></h4>
+                                    <h4 class="title">
+                                        <a href="
+                                            @if(auth()->user())
+                                                {{ route('posts.show', $post->id)}}
+                                            @else
+                                                {{ route('posts.guest.show', $post->id) }}
+                                            @endif"> {{$post->title}}
+                                        </a>
+                                    </h4>
                                     <small class="text-muted">
                                         Published on {{ isset($post->published_at) ? $post->published_at : $post->created_at }} 
                                         by <a href="{{route('user.show.info', $post->user->id)}}">{{$post->user->name}}</a>
