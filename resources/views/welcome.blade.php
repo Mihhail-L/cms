@@ -62,10 +62,32 @@
 @section('categories')
 <div class="widget-sidebar">
     <h2 class="title-widget-sidebar">Categories</h2>
-    @foreach ($categories as $category)
-        <a href="{{route('category.filter.index', $category->id)}}"><button class="categories-btn">{{$category->name}}</button></a>
-    @endforeach
+    <button class="categoriestoggle-btn" data-toggle="collapse" type="button" data-target="#categoriesToggler" aria-expanded="false" id="catCollapse">Show Categories </button>
+    <div class="collapse" id="categoriesToggler">
+        @foreach ($categories as $category)
+            @if($category->posts->count() > 0)
+                <a href="{{route('category.filter.index', $category->id)}}">
+                    <button class="categories-btn"> {{$category->name}} 
+                        <small class="badge"> 
+                                {{ $category->posts->count() }} posts
+                        </small>
+                        </button>
+                </a>
+            @endif
+        @endforeach
+    </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#categoriesToggler').on('hidden.bs.collapse', function () {
+            document.getElementById('catCollapse').innerHTML = "Show Categories";
+        });
+        $('#categoriesToggler').on('shown.bs.collapse', function () {
+            document.getElementById('catCollapse').innerHTML = "Hide Categories";
+        });
+    </script>
 @endsection
 
 @section('tags')
@@ -73,7 +95,9 @@
     <h2 class="title-widget-sidebar">Tags</h2>
         <div class="text-center">
             @foreach($tags as $tag)
-                <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+                @if($tag->posts->count() > 0)
+                    <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+                @endif
             @endforeach
         </div>
 </div>
