@@ -23,7 +23,8 @@ class UsersController extends Controller
     
     public function index() {
         //return a view for administrators with all users
-        return view('users.index')->with('users', User::all());
+        $users = User::paginate(10);
+        return view('users.index')->with('users', $users);
     }
 
     public function edit() {
@@ -56,6 +57,25 @@ class UsersController extends Controller
         //flash success message on success
         session()->flash('success', 'User "'.$user->email.'" has been made admin!');
         //redirect user back to where user came from
+        return redirect()->back();
+    }
+
+    public function destroy(User $user) {
+
+        $user_deleted_email = $user->email;
+
+        $posts = Post::where('user_id', $user->id)->get();
+
+        $post_count = $posts->count();
+
+        foreach($posts as $post) {
+            $post->forceDelete($post->id);
+        }
+
+        $user->destroy($user->id);
+
+        session()->flash('success', 'User "'.$user_deleted_email.'" has been deleted! and a total of '.$post_count.' have been deleted!');
+
         return redirect()->back();
     }
 }

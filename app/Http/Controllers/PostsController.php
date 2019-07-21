@@ -25,7 +25,7 @@ class PostsController extends Controller
  
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
         return view('posts.index', compact('posts'));
     }
 
@@ -164,7 +164,7 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function trashed() {
-        $trashed = Post::onlyTrashed()->get();
+        $trashed = Post::onlyTrashed()->paginate(5);
 
         return view('posts.index')->withPosts($trashed);
     }

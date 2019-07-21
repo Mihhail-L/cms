@@ -18,6 +18,7 @@
                     <th>Image</th>
                     <th>Title</th>
                     <th>Category</th>
+                    <th>Author</th>
                     <th></th>
                     <th></th>
                 </thead>
@@ -33,6 +34,13 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('categories.edit', $post->category->id)}}">{{$post->category->name}}</a>
+                                </td>
+                                <td>
+                                    @if(isset($post->user->name))
+                                        {{$post->user->name}}
+                                    @else 
+                                        Deleted
+                                    @endif
                                 </td>
                                 <td>
                                     @if(!$post->trashed())
@@ -62,6 +70,9 @@
                     @endif
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center mt-2">
+                    {{ $posts->links() }}
+            </div>
         @else 
             <h3 class="text-center">No Posts Yet</h3>
         @endif
