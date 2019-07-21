@@ -13,6 +13,8 @@
 
 Route::get('/', 'WelcomeController@index');
 
+Route::get('posts/show/{postid}', 'WelcomeController@show')->name('posts.guest.show');
+
 Auth::routes();
 
 

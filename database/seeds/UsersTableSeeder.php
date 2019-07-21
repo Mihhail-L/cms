@@ -13,6 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(User::class, 3)->create();
+
         $user = User::where('email', 'levin.mihhail@gmail.com')->first();
 
         if(!$user) {

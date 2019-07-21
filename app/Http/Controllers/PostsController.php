@@ -49,12 +49,15 @@ class PostsController extends Controller
     {
         //dd($request->all());
         //$post = new Post;
+        $user = auth()->user();
+        
         $imagePath = request('image')->store('/posts', 'public');
         $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
             'published_at' => $request->published_at,
+            'user_id' => $user->id,
             'category_id' => $request->category,
             'image' => $imagePath
         ]);
@@ -79,7 +82,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show')->with('post', $post);
+        return view('posts.show')->with('post', $post)->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**

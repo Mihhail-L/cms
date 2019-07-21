@@ -7,16 +7,23 @@
         <h1>Blogs</h1>
     </div>
 </div>
+<hr>
 <section class="blog-area">
     <div class="container">
-        <hr>
         <div class="row">
                 @foreach ($posts as $post)
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-md-6">
                         <div class="card h-100">
                             <div class="single-post post-style-1">
                                 <div class="blog-image">
-                                    <a href="{{ route('posts.show', $post->id)}}"> <img src="http://cms.test/storage/{{$post->image}}" alt=""></a>
+                                    <a href="
+                                        @if(auth()->user())
+                                            {{ route('posts.show', $post->id)}}
+                                        @else
+                                            {{ route('posts.guest.show', $post->id) }}
+                                        @endif"> 
+                                        <img src="http://cms.test/storage/{{$post->image}}" alt="">
+                                    </a>
                                 </div>
                                 <img src="https://pngimage.net/wp-content/uploads/2018/05/default-png-1.png" alt="" class="avatar">
                                 <div class="blog-info">
@@ -28,8 +35,12 @@
                 @endforeach
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+                {{ $posts->links() }}
+        </div>
     </div>
 </section>
+
 @endsection
 
 @section('categories')
@@ -42,10 +53,12 @@
 @endsection
 
 @section('tags')
-<div class="widget-sidebar text-center">
+<div class="widget-sidebar">
     <h2 class="title-widget-sidebar">Tags</h2>
-        @foreach($tags as $tag)
-            <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
-        @endforeach
+        <div class="text-center">
+            @foreach($tags as $tag)
+                <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+            @endforeach
+        </div>
 </div>
 @endsection

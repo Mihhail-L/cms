@@ -82,6 +82,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
+                                @yield('backbutton')
                             <ul class="list-group widget-sidebar">
                                 <h5 class="title-widget-sidebar">User Navigation</h5>
                                 @if (auth()->user()->isAdmin())
@@ -107,12 +108,12 @@
                                         </li>
                                     </a>
                             </ul>
-
                             
                             @yield('categories')
+    
+                                @yield('tags')
 
-                            @yield('tags')
-
+                            
                             <ul class="list-group mt-5 widget-sidebar">
                                     <h5 class="title-widget-sidebar-trashed">Trash</h5>
                                     <a href="{{ route('trashed-posts.index') }}">
@@ -122,6 +123,7 @@
                                     </a>
                                 </ul>
                         </div>
+                        
                         <div class="col-lg-9">
                             @yield('content')
                         </div>
@@ -131,6 +133,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
+                        @yield('backbutton')
+
                         @yield('categories')
 
                         @yield('tags')
