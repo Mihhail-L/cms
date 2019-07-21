@@ -82,7 +82,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                                @yield('backbutton')
                             <ul class="list-group widget-sidebar">
                                 <h5 class="title-widget-sidebar">User Navigation</h5>
                                 @if (auth()->user()->isAdmin())
@@ -132,8 +131,7 @@
             @else
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3">
-                        @yield('backbutton')
+                    <div class="col-lg-3"> 
 
                         @yield('categories')
 

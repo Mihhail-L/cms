@@ -25,9 +25,13 @@
                                         <img src="http://cms.test/storage/{{$post->image}}" alt="">
                                     </a>
                                 </div>
-                                <img src="https://pngimage.net/wp-content/uploads/2018/05/default-png-1.png" alt="" class="avatar">
+                            <a href="{{route('user.show.info', $post->user->id)}}"><img src="{{ Gravatar::src($post->user->email) }}" alt="" class="avatar"></a>
                                 <div class="blog-info">
                                     <h4 class="title"><a href="{{ route('posts.show', $post->id)}}"> {{$post->title}}</a></h4>
+                                    <small class="text-muted">
+                                        Published on {{ isset($post->published_at) ? $post->published_at : $post->created_at }} 
+                                        by <a href="{{route('user.show.info', $post->user->id)}}">{{$post->user->name}}</a>
+                                    </small>
                                 </div>
                             </div>
                         </div>

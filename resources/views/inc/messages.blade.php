@@ -6,9 +6,9 @@
     @endforeach
 @endif
 
-@if(session('success'))
+@if(session()->has('success'))
     <div class="alert alert-success my-4">
-        {{ session('success') }}
+        {{ session()->get('success') }}
     </div>
 @endif
 

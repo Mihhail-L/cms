@@ -21,7 +21,8 @@
                         </div>
                         <div class="form-group">
                             <label for="about">About Me</label>
-                            <textarea name="about" id="about" cols="5" rows="5" class="form-control">{{ $user->about }}</textarea>
+                            <input id="about" type="hidden" name="about" value="{{ isset($user->about) ? $user->about : ''}}">
+                            <trix-editor input="about"></trix-editor>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Save Changes</button>
@@ -29,4 +30,12 @@
                     </form>
                 </div>
             </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
 @endsection

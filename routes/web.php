@@ -15,6 +15,8 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('posts/show/{postid}', 'WelcomeController@show')->name('posts.guest.show');
 
+Route::get('users/info/{userid}', 'UsersController@show')->name('user.show.info');
+
 Auth::routes();
 
 

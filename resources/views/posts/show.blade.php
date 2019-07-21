@@ -11,10 +11,21 @@
                         <hr>
                         <h2 class="subheading">{{$post->description}}</h2>
                         @if(isset($post->published_at))
-                            <span class="meta">Published on {{$post->published_at}} by {{$post->user->name}}</span>
+                            <span class="meta">Published on {{$post->published_at}} 
+                                by 
+                                <a href="{{route('user.show.info', $post->user->id)}}">
+                                    {{$post->user->name}}
+                                </a>
+                            </span>
                         @endif
                         @if(!isset($post->published_at))
-                            <span class="meta">Published on {{$post->created_at}} by {{$post->user->name}}</span>
+                        <span class="meta">
+                            Published on {{$post->created_at}} 
+                            by 
+                            <a href="{{route('user.show.info', $post->user->id)}}">
+                                {{$post->user->name}}
+                            </a>
+                        </span>
                         @endif
                     </div>
                 </div>
@@ -34,9 +45,6 @@
             </div>
         </div>
     </article>
-@endsection
-@section('backbutton')
-<a href="/" class="btn btn-primary">Back to index</a>
 @endsection
 @section('categories')
 <div class="widget-sidebar">
