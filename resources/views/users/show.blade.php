@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.userapp')
 
 @section('content')
         <div class=" d-flex align-items-baseline">
@@ -32,7 +32,7 @@
         </div>
         <hr>
         <div id="posts">
-            <h3>User Posts</h3>
+            <h4>User Posts</h4>
             <hr>
             <ul class="list-group">
                 @foreach ($posts as $post)
@@ -54,5 +54,8 @@
                     </li>
                 @endforeach
             </ul>
+            <div class="d-flex justify-content-center mt-2">
+                    {{ $posts->links() }}
+            </div>
         </div>
 @endsection

@@ -16,7 +16,7 @@ class UsersController extends Controller
         //get authenticated users id
         $id = Auth::id();
         //find all user posts
-        $posts = Post::where('user_id', $user_id)->latest()->get();
+        $posts = Post::where('user_id', $user_id)->latest()->paginate(4);
         //return a view with user object
         return view('users.show')->with('user', $user)->with('posts', $posts)->with('authid', $id);
     }
