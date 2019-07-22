@@ -84,7 +84,7 @@
         <div class="text-center">
             @foreach($tags as $tag)
                 @if($tag->posts->count() > 0)
-                    <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+                    <a href=" {{route('tag.filter.index', $tag->id)}} " class="badge-tags badge-secondary">{{$tag->name}}</a>
                 @endif
             @endforeach
         </div>

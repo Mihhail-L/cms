@@ -19,6 +19,8 @@ Route::get('users/info/{userid}', 'UsersController@show')->name('user.show.info'
 
 Route::get('category/{catid}', 'WelcomeController@categoryfilter')->name('category.filter.index');
 
+Route::get('tag/{tagid}', 'WelcomeController@tagFilter')->name('tag.filter.index');
+
 Auth::routes();
 
 

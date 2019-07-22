@@ -33,7 +33,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                    @auth
+                        @if (auth()->user()->isAdmin())
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link">
+                                Manage Users
+                            </a>
+                        </li>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ route('posts.index') }}" class="nav-link">
+                                Manage Posts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
+                                Manage Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tags.index') }}" class="nav-link">
+                                Manage Tags
+                            </a>
+                        </li>
+                    @endauth    
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -82,32 +105,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <ul class="list-group widget-sidebar">
-                                <h5 class="title-widget-sidebar">User Navigation</h5>
-                                @if (auth()->user()->isAdmin())
-                                <a href="{{ route('users.index') }}">
-                                    <li class="list-group-item btn-sidebar-nav">
-                                        Users
-                                    </li>
-                                </a>
-                                @endif
-                                <a href="{{ route('posts.index') }}" class="pt-1">
-                                    <li class="list-group-item btn-sidebar-nav">
-                                        Posts
-                                    </li>
-                                </a>
-                                <a href="{{route('categories.index')}}" class="pt-1">
-                                        <li class="list-group-item btn-sidebar-nav">
-                                            Categories
-                                        </li>
-                                    </a>
-                                <a href="{{route('tags.index')}}" class="pt-1">
-                                        <li class="list-group-item btn-sidebar-nav">
-                                            Tags
-                                        </li>
-                                    </a>
-                            </ul>
-                            
                             @yield('categories')
     
                                 @yield('tags')

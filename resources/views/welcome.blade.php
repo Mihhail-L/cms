@@ -5,7 +5,9 @@
 <div class="hero-image">
     <div class="hero-text">
         @if(isset($cat_name))
-            <h1>Category: {{$cat_name->name}}</h1>
+            <h1>Blogs in Category: {{$cat_name->name}}</h1>
+        @elseif(isset($tag_name))
+            <h1>Blogs with Tag: {{$tag_name}} </h1>
         @else
             <h1>Blogs</h1>
         @endif
@@ -96,7 +98,7 @@
         <div class="text-center">
             @foreach($tags as $tag)
                 @if($tag->posts->count() > 0)
-                    <a href="" class="badge-tags badge-secondary">{{$tag->name}}</a>
+                    <a href=" {{route('tag.filter.index', $tag->id)}} " class="badge-tags badge-secondary">{{$tag->name}}</a>
                 @endif
             @endforeach
         </div>

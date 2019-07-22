@@ -32,4 +32,16 @@ class WelcomeController extends Controller
 
         return view('welcome')->with('posts', $posts)->with('categories', Category::all())->with('tags', Tag::all())->with('cat_name', $cat_name);
     }
+    
+    public function tagFilter($tagid) {
+
+        $tag = Tag::findOrFail($tagid);
+
+        $posts = $tag->posts()->where('tag_id', $tagid)->paginate(6);
+
+        $tag_name = Tag::findOrFail($tagid);
+        //dd($post);
+
+        return view('welcome')->with('posts', $posts)->with('categories', Category::all())->with('tags', Tag::all())->with('tag_name', $tag->name);
+    }
 }
