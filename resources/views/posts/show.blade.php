@@ -39,7 +39,7 @@
                     {!!$post->content!!}
                     <hr>
                     @foreach($post->tags as $tag)
-                        <a href="" class="badge-tags badge-secondary my-4">{{$tag->name}}</a>
+                        <a href=" {{route('tag.filter.index', $tag->id)}} " class="badge-tags badge-secondary">{{$tag->name}}</a>
                     @endforeach
                 </div>
             </div>
